@@ -1,5 +1,6 @@
 package com.mzwiliapp.userManage.controller;
 
+import com.mzwiliapp.userManage.exception.UserNotFoundException;
 import com.mzwiliapp.userManage.model.User;
 import com.mzwiliapp.userManage.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,10 @@ public class UserController {
     @GetMapping("/allUsers")
     List<User> getAllUsers(){
         return userRepository.findAll();
+    }
+
+    @GetMapping("/user/{id}")
+    User getUserById(@PathVariable Long id){
+        return userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(id));
     }
 }
