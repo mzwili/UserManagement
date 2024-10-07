@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.hamcrest.Matchers.*;
@@ -19,7 +20,7 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 
 
-@SpringBootTest(classes = UserManageApplication.class)
+@SpringBootTest(classes = UserManageApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 public class UserManageApplicationTests {
 
@@ -29,6 +30,9 @@ public class UserManageApplicationTests {
 	private User theUser;
 	private ObjectMapper objectMapper;
 	private boolean skipTearDown;
+
+	@LocalServerPort
+	private int port;
 
 
 	@BeforeEach
@@ -41,7 +45,7 @@ public class UserManageApplicationTests {
 		objectMapper = new ObjectMapper();
 		skipTearDown = false;
 
-		SpringApplication.run(UserManageApplication.class);
+//		SpringApplication.run(UserManageApplication.class);
 
 	}
 
@@ -50,9 +54,55 @@ public class UserManageApplicationTests {
 
 		String addUserBody = objectMapper.writeValueAsString(theUser);
 
-		given().baseUri("http://localhost:8080/").
+		given().baseUri("http://localhost:" + port).
 				contentType(ContentType.JSON).body(addUserBody).
-				when().post("addUser").then().assertThat().statusCode(200);
+				when().post("/addUser").then().assertThat().statusCode(200);
+
+
+	}
+
+	@Test
+	public void getAllUserTest() {
+
+
+		given().
+				when().get("http://localhost:" + port + "/allUsers").
+				then().assertThat().statusCode(200);
+
+		skipTearDown = true;
+	}
+
+	@Test
+	public void getUniqueUserTest()  {
+
+		userRepository.save(theUser);
+		theUser.setId(userRepository.findByEmail(theUser.getEmail()).getId());
+		given().
+				pathParams("id",theUser.getId()).
+				when().
+				get("http://localhost:"+ port +"/user/{id}").
+				then().
+				assertThat().statusCode(200).
+				assertThat().body("username",equalTo("Gal#1"));
+
+
+	}
+
+	@Test
+	public void updateUserTest()  {
+
+		userRepository.save(theUser);
+		theUser.setId(userRepository.findByEmail(theUser.getEmail()).getId());
+		theUser.setName("newName");
+		given().
+				pathParams("id",theUser.getId()).
+				contentType(ContentType.JSON).
+				body(theUser).
+				when().
+				put("http://localhost:"+ port +"/user/{id}").
+				then().
+				assertThat().statusCode(200).
+				assertThat().body("name",equalTo("newName"));
 
 
 	}
@@ -64,7 +114,7 @@ public class UserManageApplicationTests {
 		given().
 				pathParams("id",theUser.getId()).
 		when().
-				delete("http://localhost:8080/user/{id}").
+				delete("http://localhost:"+ port +"/user/{id}").
 		then().
 				assertThat().statusCode(200).
 				assertThat().contentType("text/plain").
@@ -75,8 +125,8 @@ public class UserManageApplicationTests {
 
 	@AfterEach
 	public void tearDown() {
-		if (!skipTearDown && theUser != null && userRepository.existsById(theUser.getId())) {
-			userRepository.deleteById(theUser.getId());
+		if (!skipTearDown) {
+			userRepository.deleteById(userRepository.findByEmail(theUser.getEmail()).getId());
 		}
 		theUser = null;
 	}
