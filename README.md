@@ -1,97 +1,129 @@
-# Getting Started with Create React App
+# User Management Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack **User Management System** built with **React** on the frontend and **Spring Boot** on the backend. This application allows you to manage users through CRUD operations and demonstrates RESTful API integration, routing, and MySQL database interaction.
 
-## Available Scripts
+## 🛠️ Tech Stack
 
-In the project directory, you can run:
+### Frontend
+- React 18
+- Axios
+- Bootstrap 5
+- React Router DOM
+- React Testing Library & Jest
 
-### `npm start`
+### Backend
+- Spring Boot 3.3.3
+- Spring Data JPA
+- MySQL
+- Jackson Databind
+- Lombok
+- REST Assured (Testing)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📁 Project Structure
 
-### `npm test`
+user-management/
+│
+├── backend/
+│   └── userManage/                 # Spring Boot project
+│       ├── src/
+│       │   └── main/
+│       │       ├── java/          # Java source code
+│       │       └── resources/     # application.properties
+│
+└── frontend/
+    └── usemanage-front/           # React application
+        ├── public/
+        └── src/
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🚀 Getting Started
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Node.js ≥ 14
+- Java 21
+- Maven
+- MySQL Server
 
-### `npm run eject`
+### 🧩 Backend Setup
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **Clone the repository** and navigate to the backend folder:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   cd backend/userManage
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. **Configure your database connection** in src/main/resources/application.properties:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+spring.datasource.url=jdbc:mysql://localhost:3306/userdb
+spring.datasource.username=root
+spring.datasource.password=yourpassword
+spring.jpa.hibernate.ddl-auto=update
 
-## Learn More
+3. **Run the backend**:
+./mvnw spring-boot:run
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+🌐 Frontend Setup
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Navigate to the frontend directory:
+cd frontend/usemanage-front
 
-### Code Splitting
+2. Install dependencies:
+npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+3. Run the development server:
+npm start
 
-### Analyzing the Bundle Size
+**The app will start at**: http://localhost:3000
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🔌 API Endpoints (Sample)
 
-### Making a Progressive Web App
+| Method | Endpoint           | Description       |
+|--------|--------------------|-------------------|
+| GET    | `/api/users`       | Get all users     |
+| GET    | `/api/users/{id}`  | Get user by ID    |
+| POST   | `/api/users`       | Create new user   |
+| PUT    | `/api/users/{id}`  | Update user       |
+| DELETE | `/api/users/{id}`  | Delete user       |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+✅ Testing
+Backend Tests
+./mvnw test
 
-### Advanced Configuration
+Frontend Tests
+npm test
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 📌 Dependencies Overview
 
-### Deployment
+### Frontend
+- **axios** – For HTTP requests.
+- **bootstrap** – For styling and UI.
+- **react-router-dom** – For SPA navigation.
+- **@testing-library** – For unit testing React components.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Backend
+- **spring-boot-starter-web** – To build REST APIs.
+- **spring-boot-starter-data-jpa** – ORM with Hibernate.
+- **mysql-connector-java** – MySQL database driver.
+- **lombok** – Reduces boilerplate code.
+- **rest-assured** – API testing library.
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# Getting Started
+## 📄 License
 
-### Reference Documentation
-For further reference, please consider the following sections:
+This project is licensed under the **MIT License**.
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.3.3/maven-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/3.3.3/maven-plugin/build-image.html)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/3.3.3/reference/htmlsingle/index.html#web)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/3.3.3/reference/htmlsingle/index.html#data.sql.jpa-and-spring-data)
+---
 
-### Guides
-The following guides illustrate how to use some features concretely:
+## 🙌 Acknowledgments
 
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-* [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
+Special thanks to the **open-source community** and documentation resources that made this project possible.
 
-### Maven Parent overrides
+## ✍️ Author
 
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
+**Mzwili** – [LinkedIn](https://www.linkedin.com/in/mzwi-linked/) • [GitHub](https://github.com/mzwili)
 
