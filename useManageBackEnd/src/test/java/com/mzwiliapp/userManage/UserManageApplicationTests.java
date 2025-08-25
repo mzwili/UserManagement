@@ -9,7 +9,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
@@ -17,7 +16,6 @@ import org.springframework.test.context.ActiveProfiles;
 import static org.hamcrest.Matchers.*;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
 
 
 @SpringBootTest(classes = UserManageApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -122,6 +120,83 @@ public class UserManageApplicationTests {
 
 		skipTearDown = true;
 	}
+
+	@Test
+	public void addUser_MissingFields_ShouldReturnBadRequest() throws JsonProcessingException {
+		// Missing username and email
+		User myUser = new User();
+		myUser.setId(87L);
+		myUser.setName("");
+		myUser.setUsername("");
+		myUser.setEmail("sdfwe");
+
+		String invalidBody = objectMapper.writeValueAsString(myUser);
+
+		given()
+				.baseUri("http://localhost:" + port)
+				.contentType(ContentType.JSON)
+				.body(invalidBody)
+				.when()
+				.post("/addUser")
+				.then()
+				.statusCode(400) // Expect validation failure
+				.body("username", equalTo("Username must be at least 3 characters"))
+				.body("name", equalTo("Name must be at least 3 characters"))
+				.body("email", equalTo("Email should be valid"));
+
+		skipTearDown = true;
+	}
+
+    // Duplicate user - already exists
+    @Test
+    public void addUser_DuplicateEmail() throws JsonProcessingException {
+
+
+        String body = objectMapper.writeValueAsString(theUser);
+
+        // First call should succeed
+        given()
+                .baseUri("http://localhost:" + port)
+                .contentType(ContentType.JSON)
+                .body(body)
+                .when()
+                .post("/addUser")
+                .then()
+                .statusCode(200);
+
+        // Second call with same email should fail
+        given()
+                .baseUri("http://localhost:" + port)
+                .contentType(ContentType.JSON)
+                .body(body)
+                .when()
+                .post("/addUser")
+                .then()
+                .statusCode(409) // UserAlreadyExistsException should map to 409
+				.contentType("text/plain")
+				.body(equalTo("User with email Gale@mail.net already exists"));
+    }
+
+    // Invalid user data - name too short
+    @Test
+    public void addUser_InvalidName() throws JsonProcessingException {
+        User user = new User();
+        user.setName("Al"); // too short
+        user.setEmail("invalid@test.com");
+
+        String body = objectMapper.writeValueAsString(user);
+
+        given()
+                .baseUri("http://localhost:" + port)
+                .contentType(ContentType.JSON)
+                .body(body)
+                .when()
+                .post("/addUser")
+                .then()
+                .statusCode(400) // validation error
+                .body("errors", not(empty())); // assuming your ValidationExceptionHandler returns "errors"
+    }
+
 
 	@AfterEach
 	public void tearDown() {
