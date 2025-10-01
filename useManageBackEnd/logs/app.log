@@ -1,0 +1,56 @@
+2025-09-30T14:45:07.868+02:00  INFO 488 --- [main] c.m.u.UserManageApplicationTests         : Starting UserManageApplicationTests using Java 22.0.1 with PID 488 (started by mthiy in C:\Users\mthiy\OneDrive\Documents\projects\userManage\useManageBackEnd)
+2025-09-30T14:45:07.874+02:00 DEBUG 488 --- [main] c.m.u.UserManageApplicationTests         : Running with Spring Boot v3.3.3, Spring v6.1.12
+2025-09-30T14:45:07.875+02:00  INFO 488 --- [main] c.m.u.UserManageApplicationTests         : The following 1 profile is active: "test"
+2025-09-30T14:45:15.092+02:00  INFO 488 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-09-30T14:45:15.093+02:00  INFO 488 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.28]
+2025-09-30T14:45:15.471+02:00  INFO 488 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-09-30T14:45:18.718+02:00  INFO 488 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-09-30T14:45:22.033+02:00  INFO 488 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4654e373
+2025-09-30T14:45:22.037+02:00  INFO 488 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-09-30T14:45:22.386+02:00  WARN 488 --- [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-30T14:45:34.240+02:00  WARN 488 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-30T14:45:38.652+02:00  INFO 488 --- [main] c.m.u.UserManageApplicationTests         : Started UserManageApplicationTests in 32.528 seconds (process running for 39.031)
+2025-09-30T14:45:45.897+02:00  INFO 488 --- [http-nio-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-30T14:45:46.683+02:00  INFO 488 --- [http-nio-auto-1-exec-1] c.m.u.controller.UserController          : Attempting to add user with email: Gale@mail.net
+2025-09-30T14:45:49.576+02:00  INFO 488 --- [http-nio-auto-1-exec-1] c.m.u.controller.UserController          : User created successfully with id: 337
+2025-09-30T14:45:50.198+02:00  INFO 488 --- [http-nio-auto-1-exec-2] c.m.u.controller.UserController          : Attempting to add user with email: Gale@mail.net
+2025-09-30T14:45:50.689+02:00 ERROR 488 --- [http-nio-auto-1-exec-2] c.m.u.controller.UserController          : User creation failed: User with email Gale@mail.net already exists
+2025-09-30T14:45:52.563+02:00  INFO 488 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-09-30T14:45:55.378+02:00  INFO 488 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-09-30T15:17:39.304+02:00  INFO 20084 --- [main] c.m.userManage.UserManageApplication     : Starting UserManageApplication using Java 22.0.1 with PID 20084 (C:\Users\mthiy\OneDrive\Documents\projects\userManage\useManageBackEnd\target\classes started by mthiy in C:\Users\mthiy\OneDrive\Documents\projects\userManage\useManageBackEnd)
+2025-09-30T15:17:39.308+02:00 DEBUG 20084 --- [main] c.m.userManage.UserManageApplication     : Running with Spring Boot v3.3.3, Spring v6.1.12
+2025-09-30T15:17:39.311+02:00  INFO 20084 --- [main] c.m.userManage.UserManageApplication     : No active profile set, falling back to 1 default profile: "default"
+2025-09-30T15:17:44.748+02:00  INFO 20084 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-09-30T15:17:44.749+02:00  INFO 20084 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.28]
+2025-09-30T15:17:45.004+02:00  INFO 20084 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-09-30T15:17:47.271+02:00  INFO 20084 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-09-30T15:17:52.259+02:00  INFO 20084 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@38c10190
+2025-09-30T15:17:52.263+02:00  INFO 20084 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-09-30T15:17:52.691+02:00  WARN 20084 --- [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-30T15:18:02.286+02:00  WARN 20084 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-30T15:18:05.896+02:00  INFO 20084 --- [main] c.m.userManage.UserManageApplication     : Started UserManageApplication in 28.392 seconds (process running for 30.107)
+2025-09-30T15:19:51.016+02:00  INFO 20084 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-30T15:19:51.310+02:00  INFO 20084 --- [http-nio-8080-exec-2] c.m.u.controller.UserController          : Fetching all users
+2025-09-30T15:19:51.310+02:00  INFO 20084 --- [http-nio-8080-exec-1] c.m.u.controller.UserController          : Fetching all users
+2025-09-30T15:19:52.799+02:00  INFO 20084 --- [http-nio-8080-exec-2] c.m.u.controller.UserController          : Total users found: 6
+2025-09-30T15:19:52.799+02:00  INFO 20084 --- [http-nio-8080-exec-1] c.m.u.controller.UserController          : Total users found: 6
+2025-09-30T15:20:28.893+02:00  INFO 20084 --- [http-nio-8080-exec-5] c.m.u.controller.UserController          : Fetching user with id: 302
+2025-09-30T15:20:29.811+02:00  INFO 20084 --- [http-nio-8080-exec-5] c.m.u.controller.UserController          : User found: senzo1
+2025-09-30T15:20:29.828+02:00  INFO 20084 --- [http-nio-8080-exec-6] c.m.u.controller.UserController          : Fetching user with id: 302
+2025-09-30T15:20:30.628+02:00  INFO 20084 --- [http-nio-8080-exec-6] c.m.u.controller.UserController          : User found: senzo1
+2025-09-30T15:28:43.890+02:00  INFO 20084 --- [http-nio-8080-exec-10] c.m.u.controller.UserController          : Fetching all users
+2025-09-30T15:28:45.422+02:00  INFO 20084 --- [http-nio-8080-exec-10] c.m.u.controller.UserController          : Total users found: 6
+2025-09-30T15:33:46.493+02:00  INFO 20084 --- [http-nio-8080-exec-3] c.m.u.controller.UserController          : Fetching user with id: 234
+2025-09-30T15:33:49.703+02:00  INFO 20084 --- [http-nio-8080-exec-3] c.m.u.controller.UserController          : User found: thefacilitator
+2025-09-30T16:38:24.365+02:00  INFO 20084 --- [http-nio-8080-exec-5] c.m.u.controller.UserController          : Fetching user with id: 302
+2025-09-30T16:38:25.699+02:00  INFO 20084 --- [http-nio-8080-exec-5] c.m.u.controller.UserController          : User found: senzo1
+2025-09-30T16:38:27.169+02:00  INFO 20084 --- [http-nio-8080-exec-6] c.m.u.controller.UserController          : Fetching all users
+2025-09-30T16:38:28.325+02:00  INFO 20084 --- [http-nio-8080-exec-6] c.m.u.controller.UserController          : Total users found: 6
+2025-09-30T16:38:28.362+02:00  INFO 20084 --- [http-nio-8080-exec-8] c.m.u.controller.UserController          : Fetching all users
+2025-09-30T16:38:29.181+02:00  INFO 20084 --- [http-nio-8080-exec-8] c.m.u.controller.UserController          : Total users found: 6
+2025-09-30T18:02:17.347+02:00  INFO 20084 --- [http-nio-8080-exec-9] c.m.u.controller.UserController          : Fetching all users
+2025-09-30T18:02:19.077+02:00  INFO 20084 --- [http-nio-8080-exec-9] c.m.u.controller.UserController          : Total users found: 6
+2025-09-30T18:02:19.387+02:00  INFO 20084 --- [http-nio-8080-exec-10] c.m.u.controller.UserController          : Fetching all users
+2025-09-30T18:02:20.354+02:00  INFO 20084 --- [http-nio-8080-exec-10] c.m.u.controller.UserController          : Total users found: 6
+2025-09-30T18:12:16.501+02:00  INFO 20084 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-09-30T18:12:21.617+02:00  INFO 20084 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

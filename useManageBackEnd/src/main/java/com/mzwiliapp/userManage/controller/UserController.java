@@ -5,6 +5,7 @@ import com.mzwiliapp.userManage.exception.UserNotFoundException;
 import com.mzwiliapp.userManage.model.User;
 import com.mzwiliapp.userManage.repository.UserRepository;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 @RestController
 @CrossOrigin("http://localhost:3000")
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -57,6 +59,7 @@ public class UserController {
      */
     @PostMapping("/addUser")
     public ResponseEntity<?> addUser(@Valid @RequestBody User user) {
+        log.info("Attempting to add user with email: {}", user.getEmail());
         try {
             // check if user with email already exists
             if (userRepository.findByEmail(user.getEmail()) != null) {
@@ -64,13 +67,16 @@ public class UserController {
             }
 
             User savedUser = userRepository.save(user);
+            log.info("User created successfully with id: {}", savedUser.getId());
             return ResponseEntity.ok(savedUser);
 
         } catch (UserAlreadyExistsException ex) {
+            log.error("User creation failed: {}", ex.getMessage());
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
 
         } catch (Exception ex) {
             // catch any unexpected errors
+            log.error("Unexpected error while creating user: {}", ex.getMessage(), ex);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + ex.getMessage());
         }
     }
@@ -107,7 +113,10 @@ public class UserController {
      */
     @GetMapping("/allUsers")
     List<User> getAllUsers(){
-        return userRepository.findAll();
+        log.info("Fetching all users");
+        List<User> users = userRepository.findAll();
+        log.info("Total users found: {}", users.size());
+        return users;
     }
 
     /**
@@ -136,7 +145,16 @@ public class UserController {
      */
     @GetMapping("/user/{id}")
     User getUserById(@PathVariable Long id){
-        return userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(id));
+        log.info("Fetching user with id: {}", id);
+        return userRepository.findById(id)
+                .map(user -> {
+                    log.info("User found: {}", user.getUsername());
+                    return user;
+                })
+                .orElseThrow(() -> {
+                    log.warn("User not found with id: {}", id);
+                    return new UserNotFoundException(id);
+                });
     }
 
     /**
@@ -171,13 +189,20 @@ public class UserController {
      */
     @PutMapping("/user/{id}")
     User updateUser(@RequestBody User newUser, @PathVariable Long id){
+        log.info("Updating user with id: {}", id);
         return userRepository.findById(id)
                 .map(user -> {
                     user.setUsername(newUser.getUsername());
                     user.setName(newUser.getName());
                     user.setEmail(newUser.getEmail());
-                    return userRepository.save(user);
-                }).orElseThrow(()-> new UserNotFoundException(id));
+                    User updated = userRepository.save(user);
+                    log.info("User updated successfully: {}", updated.getId());
+                    return updated;
+                })
+                .orElseThrow(() -> {
+                    log.warn("Cannot update - user not found with id: {}", id);
+                    return new UserNotFoundException(id);
+                });
     }
 
     /**
@@ -200,10 +225,13 @@ public class UserController {
      */
     @DeleteMapping("/user/{id}")
     String deleteUser(@PathVariable Long id){
-        if(!userRepository.existsById(id)){
+        log.info("Attempting to delete user with id: {}", id);
+        if (!userRepository.existsById(id)) {
+            log.warn("Cannot delete - user not found with id: {}", id);
             throw new UserNotFoundException(id);
         }
         userRepository.deleteById(id);
+        log.info("User with id {} deleted successfully", id);
         return "User with id " + id + " has been deleted successfully!";
     }
 }
